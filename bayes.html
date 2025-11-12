@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Teorema de Bayes</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <h1>Teorema de Bayes</h1>
+
+    <p class="lead">
+        El Teorema de Bayes permite actualizar una probabilidad inicial (probabilidad previa) cuando 
+        se obtiene nueva información. Es muy utilizado en diagnóstico médico, confiabilidad y toma de decisiones.
+    </p>
+
+    <div class="card p-4 mb-4">
+        <h3>Fórmula general:</h3>
+        <p class="text-center fs-4">
+            <strong>P(A | B) = [P(B | A) × P(A)] / P(B)</strong>
+        </p>
+
+        <p>
+            En diagnóstico médico:
+        </p>
+
+        <p class="text-center fs-4">
+            <strong>P(Enfermo | Positivo) = [Sensibilidad × P(Enfermo)] / 
+            ([Sensibilidad × P(Enfermo)] + [Falso Positivo × P(Sano)])</strong>
+        </p>
+    </div>
+
+    <!-- Calculadora -->
+    <div class="card p-4 mb-4">
+        <h3>Calculadora de Bayes</h3>
+
+        <label>Probabilidad de estar enfermo (P(Enfermo)):</label>
+        <input type="number" step="0.001" id="pe" class="form-control mb-2" placeholder="Ej: 0.10 (10%)">
+
+        <label>Sensibilidad (P(Positivo | Enfermo)):</label>
+        <input type="number" step="0.001" id="sens" class="form-control mb-2" placeholder="Ej: 0.95 (95%)">
+
+        <label>Tasa de falso positivo (P(Positivo | Sano)):</label>
+        <input type="number" step="0.001" id="fp" class="form-control mb-2" placeholder="Ej: 0.05 (5%)">
+
+        <button class="btn btn-primary mb-3" onclick="calcularBayes()">Calcular</button>
+
+        <p><strong>Resultado:</strong> <span id="resultado_bayes"></span></p>
+        <p id="interpretacion_bayes" class="text-secondary"></p>
+    </div>
+
+    <a href="index.html" class="btn btn-secondary">Volver al Menú</a>
+
+</div>
+
+<script>
+function calcularBayes(){
+    let pe = parseFloat(document.getElementById("pe").value);    // Probabilidad de estar enfermo
+    let sens = parseFloat(document.getElementById("sens").value); // Sensibilidad
+    let fp = parseFloat(document.getElementById("fp").value);    // Falso positivo
+
+    let ps = 1 - pe; // Probabilidad de estar sano
+
+    let numerador = sens * pe;
+    let denominador = (sens * pe) + (fp * ps);
+
+    let resultado = numerador / denominador;
+
+    document.getElementById("resultado_bayes").innerText = resultado.toFixed(4);
+
+    document.getElementById("interpretacion_bayes").innerText = 
+        "Interpretación: Si la prueba salió positiva, la probabilidad real de estar enfermo es de " 
+        + (resultado * 100).toFixed(1) + "%.";
+}
+</script>
+
+</body>
+</html>

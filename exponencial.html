@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Distribución Exponencial</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <h1>Distribución Exponencial</h1>
+
+    <p class="lead">
+        La distribución exponencial modela el tiempo entre eventos que ocurren de forma independiente,
+        con una tasa promedio de ocurrencia constante <strong>λ</strong>.
+    </p>
+
+    <div class="card p-4 mb-4">
+        <h3>Fórmula:</h3>
+        <p class="text-center fs-4">
+            <strong>P(X ≤ t) = 1 - e<sup>-λt</sup></strong>
+        </p>
+        <ul>
+            <li><strong>λ:</strong> tasa promedio de ocurrencia</li>
+            <li><strong>t:</strong> tiempo</li>
+        </ul>
+    </div>
+
+    <div class="card p-4 mb-4">
+
+        <h3>Cálculos</h3>
+
+        <label>λ (tasa promedio):</label>
+        <input type="number" step="0.01" id="lambda" class="form-control mb-2">
+
+        <label>t (tiempo):</label>
+        <input type="number" step="0.01" id="t" class="form-control mb-2">
+
+        <button class="btn btn-primary mt-2" onclick="menor()">P(X ≤ t)</button>
+        <p class="mt-3"><strong>Resultado:</strong> <span id="res_menor"></span></p>
+
+        <button class="btn btn-primary mt-2" onclick="mayor()">P(X ≥ t)</button>
+        <p class="mt-3"><strong>Resultado:</strong> <span id="res_mayor"></span></p>
+
+        <hr>
+
+        <label>a (límite inferior):</label>
+        <input type="number" step="0.01" id="a" class="form-control mb-2">
+
+        <label>b (límite superior):</label>
+        <input type="number" step="0.01" id="b" class="form-control mb-2">
+
+        <button class="btn btn-primary mt-2" onclick="entre()">P(a ≤ X ≤ b)</button>
+        <p class="mt-3"><strong>Resultado:</strong> <span id="res_entre"></span></p>
+
+    </div>
+
+    <a href="index.html" class="btn btn-secondary">Volver al Menú</a>
+
+</div>
+
+<script>
+function menor(){
+    let lambda = parseFloat(document.getElementById("lambda").value);
+    let t = parseFloat(document.getElementById("t").value);
+
+    let result = 1 - Math.exp(-lambda * t);
+    document.getElementById("res_menor").innerText = result.toFixed(6) + " (" + (result*100).toFixed(2) + "%)";
+}
+
+function mayor(){
+    let lambda = parseFloat(document.getElementById("lambda").value);
+    let t = parseFloat(document.getElementById("t").value);
+
+    let result = Math.exp(-lambda * t);
+    document.getElementById("res_mayor").innerText = result.toFixed(6) + " (" + (result*100).toFixed(2) + "%)";
+}
+
+function entre(){
+    let lambda = parseFloat(document.getElementById("lambda").value);
+    let a = parseFloat(document.getElementById("a").value);
+    let b = parseFloat(document.getElementById("b").value);
+
+    let result = Math.exp(-lambda * a) - Math.exp(-lambda * b);
+    document.getElementById("res_entre").innerText = result.toFixed(6) + " (" + (result*100).toFixed(2) + "%)";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+body {
+    background-color: #f5f7fa;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #333;
+}
+
+/* Contenedores de secciones */
+.card {
+    border-radius: 10px;
+    border: 1px solid #dce3ec;
+}
+
+/* Títulos */
+h1, h2, h3 {
+    color: #0a3d91;
+    font-weight: 600;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #0a3d91;
+    border-color: #0a3d91;
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #062a63;
+    border-color: #062a63;
+}
+
+/* Inputs */
+input, select {
+    border-radius: 6px !important;
+}
+
+/* List-group */
+.list-group-item {
+    font-size: 17px;
+    padding: 14px;
+    border-radius: 8px !important;
+    margin-bottom: 8px;
+    border: 1px solid #dce3ec !important;
+}
+
+.list-group-item:hover {
+    background-color: #E7B8F7;
+}
+
+/* Footer simple */
+.footer {
+    margin-top: 50px;
+    text-align: center;
+    color: #777;
+}
+

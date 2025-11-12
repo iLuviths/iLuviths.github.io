@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Probabilidad Condicional</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <h1>Probabilidad Condicional</h1>
+    <p class="lead">
+        La probabilidad condicional representa la probabilidad de que ocurra un evento A dado que ocurrió un evento B.
+        Se expresa como:
+    </p>
+
+    <div class="card p-4 mb-4">
+        <h3>Fórmula:</h3>
+        <p class="text-center fs-4"><strong>P(A | B) = P(A ∩ B) / P(B)</strong></p>
+        <p>Solo aplica cuando P(B) &ne; 0.</p>
+    </div>
+
+    <!-- Calculadora -->
+    <div class="card p-4 mb-4">
+        <h3>Cálculo de Probabilidad Condicional</h3>
+
+        <label>P(A ∩ B): (Intersección de A y B)</label>
+        <input type="number" step="0.01" id="inter" class="form-control mb-2">
+
+        <label>P(B):</label>
+        <input type="number" step="0.01" id="pb" class="form-control mb-2">
+
+        <button class="btn btn-primary mb-3" onclick="probCondicional()">Calcular</button>
+
+        <p><strong>Resultado:</strong> <span id="resultado_cond"></span></p>
+        <p id="interpretacion_cond" class="text-secondary"></p>
+    </div>
+
+    <!-- Independencia -->
+    <div class="card p-4 mb-4">
+        <h3>Eventos Dependientes e Independientes</h3>
+        <p>Dos eventos son:</p>
+        <ul>
+            <li><strong>Independientes</strong> si: <strong>P(A ∩ B) = P(A) × P(B)</strong></li>
+            <li><strong>Dependientes</strong> si eso NO se cumple.</li>
+        </ul>
+
+        <label>P(A):</label>
+        <input type="number" step="0.01" id="pa" class="form-control mb-2">
+
+        <label>P(B):</label>
+        <input type="number" step="0.01" id="pb_ind" class="form-control mb-2">
+
+        <label>P(A ∩ B):</label>
+        <input type="number" step="0.01" id="inter_ind" class="form-control mb-2">
+
+        <button class="btn btn-primary mb-3" onclick="evaluarIndependencia()">Evaluar</button>
+
+        <p><strong>Resultado:</strong> <span id="resultado_ind"></span></p>
+    </div>
+
+    <a href="index.html" class="btn btn-secondary">Volver al Menú</a>
+
+</div>
+
+<script>
+function probCondicional(){
+    let inter = parseFloat(document.getElementById("inter").value);
+    let pb = parseFloat(document.getElementById("pb").value);
+
+    if(pb === 0){
+        document.getElementById("resultado_cond").innerText = "No se puede dividir entre 0.";
+        return;
+    }
+
+    let res = inter / pb;
+    document.getElementById("resultado_cond").innerText = res.toFixed(4);
+    document.getElementById("interpretacion_cond").innerText = 
+        "Interpretación: Dado que ocurrió B, la probabilidad de que ocurra A es " + (res*100).toFixed(1) + "%.";
+}
+
+function evaluarIndependencia(){
+    let pa = parseFloat(document.getElementById("pa").value);
+    let pb = parseFloat(document.getElementById("pb_ind").value);
+    let inter = parseFloat(document.getElementById("inter_ind").value);
+
+    let producto = pa * pb;
+
+    if(Math.abs(producto - inter) < 0.0001){
+        document.getElementById("resultado_ind").innerText = 
+            "Los eventos son INDEPENDIENTES porque P(A∩B) = P(A) × P(B).";
+    } else {
+        document.getElementById("resultado_ind").innerText = 
+            "Los eventos son DEPENDIENTES porque P(A∩B) ≠ P(A) × P(B).";
+    }
+}
+</script>
+
+</body>
+</html>

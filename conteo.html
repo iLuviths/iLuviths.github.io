@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Técnicas de Conteo</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Técnicas de Conteo</h1>
+    <p class="lead">En esta sección se calculan permutaciones y combinaciones utilizando sus fórmulas básicas.</p>
+
+    <!-- Permutaciones -->
+    <div class="card p-4 mb-4">
+        <h3>Permutaciones (n!)</h3>
+        <p>Se usa cuando el orden importa.</p>
+
+        <label>N:</label>
+        <input type="number" id="n_perm" class="form-control mb-2" placeholder="Ingrese n">
+        <button class="btn btn-primary" onclick="calcularPermutacion()">Calcular</button>
+        <p class="mt-3"><strong>Resultado:</strong> <span id="resultado_perm"></span></p>
+    </div>
+
+    <!-- Permutaciones con r -->
+    <div class="card p-4 mb-4">
+        <h3>Permutaciones con r (nPr)</h3>
+        <p>Se usa cuando se eligen r elementos de n, considerando el orden.</p>
+
+        <label>N:</label>
+        <input type="number" id="n_permr" class="form-control mb-2">
+
+        <label>r:</label>
+        <input type="number" id="r_permr" class="form-control mb-2">
+
+        <button class="btn btn-primary" onclick="calcularPermutacionR()">Calcular</button>
+        <p class="mt-3"><strong>Resultado:</strong> <span id="resultado_permr"></span></p>
+    </div>
+
+    <!-- Combinaciones -->
+    <div class="card p-4 mb-4">
+        <h3>Combinaciones (nCr)</h3>
+        <p>Se usa cuando el orden no importa.</p>
+
+        <label>N:</label>
+        <input type="number" id="n_comb" class="form-control mb-2">
+
+        <label>r:</label>
+        <input type="number" id="r_comb" class="form-control mb-2">
+
+        <button class="btn btn-primary" onclick="calcularCombinacion()">Calcular</button>
+        <p class="mt-3"><strong>Resultado:</strong> <span id="resultado_comb"></span></p>
+    </div>
+
+    <a href="index.html" class="btn btn-secondary">Volver al Menú</a>
+</div>
+
+<script>
+function factorial(num){
+    if(num <= 1) return 1;
+    return num * factorial(num - 1);
+}
+
+function calcularPermutacion(){
+    let n = parseInt(document.getElementById("n_perm").value);
+    document.getElementById("resultado_perm").innerText = factorial(n);
+}
+
+function calcularPermutacionR(){
+    let n = parseInt(document.getElementById("n_permr").value);
+    let r = parseInt(document.getElementById("r_permr").value);
+    document.getElementById("resultado_permr").innerText = factorial(n) / factorial(n-r);
+}
+
+function calcularCombinacion(){
+    let n = parseInt(document.getElementById("n_comb").value);
+    let r = parseInt(document.getElementById("r_comb").value);
+    document.getElementById("resultado_comb").innerText = factorial(n) / (factorial(r) * factorial(n-r));
+}
+</script>
+
+</body>
+</html>
