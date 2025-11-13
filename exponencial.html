@@ -17,20 +17,35 @@
         con una tasa promedio de ocurrencia constante <strong>λ</strong>.
     </p>
 
+    <!-- Fórmula -->
     <div class="card p-4 mb-4">
-        <h3>Fórmula:</h3>
+        <h3>Fórmula de la densidad:</h3>
         <p class="text-center fs-4">
-            <strong>P(X ≤ t) = 1 - e<sup>-λt</sup></strong>
+            <strong>f(x) = λ e<sup>-λx</sup>, &nbsp; x ≥ 0</strong>
         </p>
         <ul>
             <li><strong>λ:</strong> tasa promedio de ocurrencia</li>
-            <li><strong>t:</strong> tiempo</li>
+            <li><strong>x:</strong> valor de la variable aleatoria</li>
         </ul>
     </div>
 
+    <!-- Cálculo de f(x) -->
     <div class="card p-4 mb-4">
+        <h3>Cálculo de f(x)</h3>
 
-        <h3>Cálculos</h3>
+        <label>λ (tasa promedio):</label>
+        <input type="number" step="0.01" id="lambda_fx" class="form-control mb-2">
+
+        <label>x (valor):</label>
+        <input type="number" step="0.01" id="x_fx" class="form-control mb-2">
+
+        <button class="btn btn-success mt-2" onclick="calcularFx()">Calcular f(x)</button>
+        <p class="mt-3"><strong>Resultado:</strong> <span id="res_fx"></span></p>
+    </div>
+
+    <!-- Probabilidades acumuladas -->
+    <div class="card p-4 mb-4">
+        <h3>Probabilidades acumuladas</h3>
 
         <label>λ (tasa promedio):</label>
         <input type="number" step="0.01" id="lambda" class="form-control mb-2">
@@ -54,18 +69,30 @@
 
         <button class="btn btn-primary mt-2" onclick="entre()">P(a ≤ X ≤ b)</button>
         <p class="mt-3"><strong>Resultado:</strong> <span id="res_entre"></span></p>
-
     </div>
 
-    <a href="index.html" class="btn btn-secondary">Volver al Menú</a>
+    <a href="index.html" class="btn btn-secondary mb-5">Volver al Menú</a>
 
 </div>
 
 <script>
+function calcularFx(){
+    const lambda = parseFloat(document.getElementById("lambda_fx").value);
+    const x = parseFloat(document.getElementById("x_fx").value);
+    const res = document.getElementById("res_fx");
+
+    if (isNaN(lambda) || isNaN(x) || lambda <= 0 || x < 0) {
+        res.innerText = "⚠️ Ingrese valores válidos (λ > 0, x ≥ 0).";
+        return;
+    }
+
+    const fx = lambda * Math.exp(-lambda * x);
+    res.innerText = `f(${x}) = ${fx.toFixed(6)}`;
+}
+
 function menor(){
     let lambda = parseFloat(document.getElementById("lambda").value);
     let t = parseFloat(document.getElementById("t").value);
-
     let result = 1 - Math.exp(-lambda * t);
     document.getElementById("res_menor").innerText = result.toFixed(6) + " (" + (result*100).toFixed(2) + "%)";
 }
@@ -73,7 +100,6 @@ function menor(){
 function mayor(){
     let lambda = parseFloat(document.getElementById("lambda").value);
     let t = parseFloat(document.getElementById("t").value);
-
     let result = Math.exp(-lambda * t);
     document.getElementById("res_mayor").innerText = result.toFixed(6) + " (" + (result*100).toFixed(2) + "%)";
 }
@@ -82,7 +108,6 @@ function entre(){
     let lambda = parseFloat(document.getElementById("lambda").value);
     let a = parseFloat(document.getElementById("a").value);
     let b = parseFloat(document.getElementById("b").value);
-
     let result = Math.exp(-lambda * a) - Math.exp(-lambda * b);
     document.getElementById("res_entre").innerText = result.toFixed(6) + " (" + (result*100).toFixed(2) + "%)";
 }
